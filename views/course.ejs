@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/css/course.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <%- include('./partials/logoutjshead') %>
+
+    <title>course</title>
+  </head>
+  <body>
+    
+    <%- include('./partials/header') %>
+
+    <div class="courses-container">
+      <% courses.forEach(function(course) { %>
+      <div data-id="<%= course.id %> class="courses">
+        <%if(varified){%>
+          <button class="update" data-id="<%= course.id %>">update</button>
+          <button class="delete" data-id="<%= course.id %>">X</button>
+        <%}%>
+        <h3 class="courses__name"><%= course.name %></h3>
+        <h3 class="courses__disc"><%= course.disc %></h3>
+        <h3 class="courses__tag"><%= course.tag %></h3>
+        <h3 class="courses__fees"><%= course.fees %></h3>
+      </div>
+      <% }); %>
+    </div>
+    
+    <%if(varified){%>
+      <button
+      onclick="document.getElementById('id02').style.display='block'"
+      style="width:auto;"
+    >
+      Add new course
+    </button>
+    <%}%>
+   
+
+    <div id="id02" class="modal">
+      <form
+      id="post-form"
+        class="modal-content animate"
+        action="/api/datas/"
+        method="POST"        
+      >
+        <div class="imgcontainer">
+          <span
+            onclick="document.getElementById('id02').style.display='none'"
+            class="close"
+            title="Close Modal"
+            >&times;</span
+          >
+        </div>
+
+        <div class="container">
+          <label for="name"><b>Course name</b></label>
+          <input type="text" placeholder="Course name" name="name" required />
+
+          <label for="disc"><b>Course disc</b></label>
+          <input type="text" placeholder="Course disc" name="disc" required />
+
+          <label for="tag"><b>Course tag</b></label>
+          <input type="text" placeholder="Course tag" name="tag" required />
+
+          <label for="fees"><b>Course fees</b></label>
+          <input type="number" placeholder="Course fees" name="fees" required />
+          <%if(varified){%>
+            <button type="submit">Add new course</button>
+            <%}%>
+          
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+          <%if(varified){%>
+            <button
+              type="button"
+              onclick="document.getElementById('id02').style.display='none'"
+              class="cancelbtn"
+            >
+              Cancel
+            </button>
+            <%}%>
+          
+        </div>
+      </form>
+    </div>
+
+
+
+    <div id="id01" class="modal">
+      <form
+      id="update-form"
+        class="modal-content animate"
+        
+      >
+        <div class="imgcontainer">
+          <span
+            onclick="document.getElementById('id01').style.display='none'"
+            class="close"
+            title="Close Modal"
+            >&times;</span
+          >
+        </div>
+
+        <div class="container">
+          <label for="name"><b>Course name</b></label>
+          <input type="text" placeholder="Course name" name="name"  />
+
+          <label for="disc"><b>Course disc</b></label>
+          <input type="text" placeholder="Course disc" name="disc"  />
+
+          <label for="tag"><b>Course tag</b></label>
+          <input type="text" placeholder="Course tag" name="tag"  />
+
+          <label for="fees"><b>Course fees</b></label>
+          <input type="number" placeholder="Course fees" name="fees"  />
+          <%if(varified){%>
+            <button type="submit">Update</button>
+          <%}%>
+         
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+          <%if(varified){%>
+              <button
+              type="button"
+              onclick="document.getElementById('id01').style.display='none'"
+              class="cancelbtn"
+            >
+              Cancel
+            </button>
+            <%}%>
+         
+        </div>
+      </form>
+    </div>
+
+    <script>
+      const updatebuttons = document.querySelectorAll(".update");
+      const deletebuttons = document.querySelectorAll(".delete");
+      const form = document.getElementById("update-form")
+
+
+
+      updatebuttons.forEach(course => {
+        course.addEventListener("click", () => {
+          document.getElementById("id01").style.display = "block";
+          style = "width:auto";
+          const id = course.getAttribute("data-id")
+          form.setAttribute("data-id", id)
+        });
+      });
+      form.addEventListener('submit',e=>{
+        e.preventDefault()
+        
+        let changes=[]
+        const id = form.getAttribute("data-id");
+        console.log(id);
+        
+        if(form.name.value){
+          changes.push({propName:"name",value:form.name.value})
+        }
+        if(form.disc.value){
+          changes.push({propName:"disc",value:form.disc.value})
+        }
+        if(form.tag.value){
+          changes.push({propName:"tag",value:form.tag.value})
+        }
+        if(form.fees.value){
+          changes.push({propName:"fees",value:form.fees.value})
+        }
+        console.log(JSON.stringify(changes));
+        
+        fetch('/api/datas/'+id, {
+        method: 'PATCH',
+        body: JSON.stringify(changes),
+        headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+        }
+        })
+        .then(response => response.json())
+        .then(json => {
+          console.log(json);
+          location.reload();
+
+          
+        })
+      })
+
+
+
+
+
+
+      deletebuttons.forEach(course => {
+        course.addEventListener("click", () => {
+            const id = course.getAttribute("data-id");
+            fetch("/api/datas/" + id, {
+              method: "DELETE"
+            }).then(res=>res.json())
+            .then(data=>console.log(data))         
+          course.parentNode.parentNode.removeChild(course.parentNode);
+        });
+      });
+
+      // Get the modal
+      var modal = document.getElementById("id01");
+      var modal2 = document.getElementById("id02");
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+      window.onclick = function(event) {
+        if (event.target == modal2) {
+          modal2.style.display = "none";
+        }
+      };
+    </script>
+  </body>
+</html>

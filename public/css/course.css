@@ -1,0 +1,243 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  height: 20vh;
+  background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(245, 255, 247, 0)), color-stop(rgba(245, 255, 247, 0.7)), to(#f5fff7));
+  background-image: linear-gradient(to top, rgba(245, 255, 247, 0), rgba(245, 255, 247, 0.7), #f5fff7);
+}
+
+header nav {
+  height: 12vh;
+  width: 80vw;
+  margin: auto;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 5vh;
+  background: #f9fffa;
+  -webkit-box-shadow: 0px 2.76726px 4.81503px rgba(0, 0, 0, 0.00591238), 0px 6.6501px 11.5712px rgba(0, 0, 0, 0.0120169), 0px 12.5216px 21.7875px rgba(0, 0, 0, 0.0185423), 0px 22.3363px 38.8652px rgba(0, 0, 0, 0.0260911), 0px 41.7776px 72.693px rgba(0, 0, 0, 0.036991), 0px 100px 174px rgba(0, 0, 0, 0.07);
+          box-shadow: 0px 2.76726px 4.81503px rgba(0, 0, 0, 0.00591238), 0px 6.6501px 11.5712px rgba(0, 0, 0, 0.0120169), 0px 12.5216px 21.7875px rgba(0, 0, 0, 0.0185423), 0px 22.3363px 38.8652px rgba(0, 0, 0, 0.0260911), 0px 41.7776px 72.693px rgba(0, 0, 0, 0.036991), 0px 100px 174px rgba(0, 0, 0, 0.07);
+  border-radius: 14px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+header nav .logo {
+  margin-left: 15px;
+}
+
+header nav ul {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  margin-right: 15px;
+}
+
+header nav ul a {
+  color: inherit;
+  text-decoration: none;
+}
+
+header nav ul li {
+  padding: 1rem;
+}
+
+.courses-container {
+  display: -ms-grid;
+  display: grid;
+  margin: 30px 150px 0px 150px;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 5px;
+}
+
+.courses-container .courses {
+  padding: 2rem;
+  border: 1px solid #000;
+}
+
+.courses-container .courses__name {
+  font-weight: bold;
+  text-decoration: underline;
+  display: block;
+  font-size: 30px;
+  font-family: "Poppins", sans-serif;
+}
+
+.courses-container .courses__tag {
+  border: 1px solid #000;
+  border-radius: 15px;
+  color: #f5fff7;
+  background-color: orange;
+  padding: 10px;
+  display: inline;
+}
+
+.courses-container .courses__disc {
+  font-size: 20px;
+}
+
+.courses-container .courses__fees {
+  font-weight: bold;
+}
+
+/* Full-width input fields */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 4;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 60%;
+  /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s;
+}
+
+@-webkit-keyframes animatezoom {
+  from {
+    -webkit-transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+  }
+}
+
+@keyframes animatezoom {
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+  .cancelbtn {
+    width: 100%;
+  }
+}
+
+button {
+  display: inline-block !important;
+  width: auto;
+  border-radius: 15px;
+}
+/*# sourceMappingURL=course.css.map */

@@ -1,0 +1,30 @@
+<header>
+  <nav>
+    <div class="logo">
+      <h3>LOGO</h3>
+    </div>
+    <ul class="navigation">
+      <% if (varified) { %>
+      <a href="/home/<%=id%>"><li>home</li></a>
+      <%} else { %>
+      <a href="/home"><li>home</li></a>
+      <% } %> <% if (varified) { %>
+      <a href="/about/<%=id%>"><li>about</li></a>
+      <%} else { %>
+      <a href="/about"><li>about</li></a>
+      <% } %> <% if (varified) { %>
+      <a href="/course/<%=id%>"><li>Course</li></a>
+      <%} else { %>
+      <a href="/course"><li>Course</li></a>
+      <% } %> <% if (varified) { %>
+      <a href="/contact/<%=id%>"><li>contact</li></a>
+      <%} else { %>
+      <a href="/contact"><li>contact</li></a>
+      <% } %> <% if (varified) { %>
+      <a id="log-out"><li><%= name %></li></a>
+      <%} else { %>
+      <a href="/api/users/login" id="log-in"><li>log-in</li></a>
+      <% } %>
+    </ul>
+  </nav>
+</header>

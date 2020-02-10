@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/css/login.css" type="text/css" />
+    <title>Register</title>
+  </head>
+  <body>
+    <h2>registration Form</h2>
+    <%= msg %>
+    <!--Step 1 : Adding HTML-->
+    <form action="/api/users/register" method="post">
+      <div class="container">
+        <label><b>Username</b></label>
+        <input
+          type="text"
+          placeholder="Enter Username"
+          name="name"
+          required
+          minlength="6"
+          maxlength="255"
+        />
+
+        <label><b>Email</b></label>
+        <input
+          type="text"
+          placeholder="Enter email"
+          name="email"
+          required
+          minlength="6"
+          maxlength="255"
+        />
+
+        <label><b>Password</b></label>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="password"
+          required
+        />
+
+        <button type="submit" value="submit">register</button>
+        <input type="checkbox" checked="checked" /> Remember me
+      </div>
+
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" class="cancelbtn">Cancel</button>
+      </div>
+    </form>
+  </body>
+</html>

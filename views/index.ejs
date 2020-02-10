@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+    <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
+    <%- include('./partials/logoutjshead') %>
+
+    <title>caurosel</title>
+  </head>
+  <body>
+    <%- include('./partials/header') %>
+
+    <div class="top-banner">
+      <div class="any-class">
+        <div class="banner"><img src="/course.jpg" alt="" /></div>
+        <div class="banner"><img src="/course.jpg" alt="" /></div>
+        <div class="banner"><img src="/course.jpg" alt="" /></div>
+      </div>
+      <div role="tablist" id="dots" class="dots"></div>
+    </div>
+
+    <div class="glider-contain">
+      <div class="glider">
+        <div class="cource-element element-first">
+          <!-- <img src="../course.jpg" alt="cource" />
+          <button>TRY cource</button>
+          <h1>hotel management studies 1</h1>
+          <p>this is a hotel management studious</p> -->
+        </div>
+        <div class="cource-element">
+          <!-- <img src="../course.jpg" alt="cource" />
+          <button>TRY cource</button>
+          <h1>hotel management studies 2</h1>
+          <p>this is a hotel management studious</p> -->
+        </div>
+        <div class="cource-element element-last ">
+          <!-- <img src="../course.jpg" alt="cource" />
+          <button>TRY cource</button>
+          <h1>hotel management studies 3</h1>
+          <p>this is a hotel management studious</p> -->
+        </div>
+        <div class="cource-element element-first ">
+          <!-- <img src="../course.jpg" alt="cource" />
+          <button>TRY cource</button>
+          <h1>hotel management studies 4</h1>
+          <p>this is a hotel management studious</p> -->
+        </div>
+        <div class="cource-element">
+          <!-- <img src="../course.jpg" alt="cource" />
+          <button>TRY cource</button>
+          <h1>hotel management studies 5</h1>
+          <p>this is a hotel management studious</p> -->
+        </div>
+        <div class="cource-element element-last">
+          <!-- <img src="../course.jpg" alt="cource" />
+          <button>TRY cource</button>
+          <h1>hotel management studies 6</h1>
+          <p>this is a hotel management studious</p> -->
+        </div>
+      </div>
+      <button role="button" aria-label="Previous" class="glider-prev">
+        <i class="material-icons">
+          keyboard_arrow_left
+        </i>
+      </button>
+      <button role="button" aria-label="Next" class="glider-next">
+        <i class="material-icons">
+          keyboard_arrow_right
+        </i>
+      </button>
+      <div role="tablist" id="resp-dots" class="dots"></div>
+    </div>
+
+    <script>
+      window.addEventListener("load", function() {
+        let top_banner = document.querySelector(".any-class");
+        let bannertop = new Glider(top_banner, {
+          slidesToScroll: 1,
+          slidesToShow: 1,
+          draggable: true,
+          scrollLock: true,
+          dots: "#dots",
+          duration: 0.7
+        });
+        sliderAuto(bannertop, 3000);
+      });
+
+      let glider = document.querySelector(".glider");
+      let slider = new Glider(glider, {
+        // Mobile-first defaults
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        scrollLock: true,
+        dots: "#resp-dots",
+        arrows: {
+          prev: ".glider-prev",
+          next: ".glider-next"
+        },
+        responsive: [
+          {
+            // screens greater than >= 775px
+            breakpoint: 775,
+            settings: {
+              // Set to `auto` and provide item width to adjust to viewport
+              slidesToShow: "2",
+              slidesToScroll: "2",
+              itemWidth: 150,
+              duration: 0.5
+            }
+          },
+          {
+            // screens greater than >= 1024px
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              itemWidth: 150,
+              duration: 0.5,
+              draggable: true,
+              scrollLockDelay: 300
+            }
+          }
+        ]
+      });
+      if (screen.width <= 755) {
+        console.log(screen.width);
+
+        sliderAuto(slider, 3000);
+      } else if (screen.width >= 755 && screen.width <= 1200) {
+        console.log(screen.width);
+        sliderAuto(slider, 4000);
+      } else {
+        console.log(screen.width);
+        sliderAuto(slider, 6000);
+      }
+
+      function sliderAuto(slider, miliseconds) {
+        slider.isLastSlide = function() {
+          return slider.page >= slider.dots.childElementCount - 1;
+        };
+
+        function slide() {
+          slider.slideTimeout = setTimeout(function() {
+            function slideTo() {
+              return slider.isLastSlide() ? 0 : slider.page + 1;
+            }
+            console.log(slider.isLastSlide());
+            slider.scrollItem(slideTo(), true);
+          }, miliseconds);
+        }
+
+        slider.ele.addEventListener("glider-animated", event => {
+          window.clearInterval(slider.slideTimeout);
+          slide();
+        });
+
+        slide();
+      }
+    </script>
+    <div class="grid-container">
+      <div class="container-coll">
+        <div class="items">
+          <h1>
+            this is intem 1
+          </h1>
+          <p class="newpara">this is a new para</p>
+        </div>
+        <div class="items">
+          <h1>this is intem 2</h1>
+          <p class="newpara">this is a new para</p>
+        </div>
+        <div class="items">
+          <h1>this is intem 3</h1>
+          <p class="newpara">this is a new para</p>
+        </div>
+      </div>
+      <div class="container-coll" id="jsprodused"></div>
+    </div>
+
+    <script>
+      let newhtml = document.getElementById("jsprodused");
+      fetch("/api/datas/")
+        .then(res => res.json())
+        .then(datas => {
+          console.log(datas);
+
+          let newdatas = datas.map(
+            data =>
+              `<div class="items"><h1 title="${data.name}">${data.name}</h1><p class="newpara" title = "${data.disc}">${data.disc}.</p></div>`
+          );
+
+          newdatas.forEach(data => {
+            newhtml.innerHTML += data;
+          });
+          let items = document.querySelectorAll(".items");
+          let newpara = document.querySelectorAll(".newpara");
+          items.forEach((item, index) => {
+            console.log(item);
+            item.addEventListener(
+              "click",
+              function() {
+                if (newpara[index].classList.contains("hidden")) {
+                  newpara[index].classList.remove("hidden");
+                  setTimeout(function() {
+                    newpara[index].classList.remove("visuallyhidden");
+                  });
+                } else {
+                  newpara[index].classList.add("visuallyhidden");
+                  newpara[index].addEventListener(
+                    "transitionend",
+                    function(e) {
+                      newpara[index].classList.add("hidden");
+                    },
+                    {
+                      capture: false,
+                      once: true,
+                      passive: false
+                    }
+                  );
+                }
+              },
+              false
+            );
+          });
+        });
+    </script>
+    <section>
+      <svg
+        width="148"
+        height="151"
+        viewBox="0 0 148 151"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M38.7468 147.47C37.5533 147.47 36.3485 147.233 35.1967 146.747C31.7269 145.28 29.4844 141.856 29.4844 138.025V127.996C29.4844 124.418 26.6321 121.508 23.125 121.508C10.3735 121.508 0 110.924 0 97.9141V27.1328C0 14.1228 10.3735 3.53906 23.125 3.53906H124.875C137.626 3.53906 148 14.1228 148 27.1328V68.4219C148 71.6798 145.412 74.3203 142.219 74.3203C139.026 74.3203 136.438 71.6798 136.438 68.4219V27.1328C136.438 20.6284 131.25 15.3359 124.875 15.3359H23.125C16.7498 15.3359 11.5625 20.6284 11.5625 27.1328V97.9141C11.5625 104.418 16.7498 109.711 23.125 109.711C33.0073 109.711 41.0469 117.913 41.0469 127.996V132.336L53.6358 119.492C59.8179 113.184 68.037 109.711 76.78 109.711H124.875C131.25 109.711 136.438 104.418 136.438 97.9141C136.438 94.6561 139.026 92.0156 142.219 92.0156C145.412 92.0156 148 94.6561 148 97.9141C148 110.923 137.626 121.508 124.875 121.508H76.78C71.1263 121.508 65.8103 123.754 61.812 127.833L45.2801 144.699C43.5062 146.51 41.1496 147.47 38.7468 147.47ZM79.7812 92.3105C79.7812 89.0526 77.1932 86.4121 74 86.4121C70.8068 86.4121 68.2188 89.0526 68.2188 92.3105C68.2188 95.5685 70.8068 98.209 74 98.209C77.1932 98.209 79.7812 95.5685 79.7812 92.3105ZM79.7812 71.666V67.5417C79.7812 67.2076 79.9687 66.8908 80.2182 66.8056C88.452 64.0061 93.9713 55.8624 93.6416 47.002C93.2543 36.5945 84.9607 28.1328 74.7599 27.7376C69.3648 27.528 64.252 29.5141 60.3689 33.3285C56.4835 37.1452 54.3438 42.2764 54.3438 47.7773C54.3438 51.0353 56.9318 53.6758 60.125 53.6758C63.3182 53.6758 65.9062 51.0353 65.9062 47.7773C65.9062 45.5124 66.7881 43.3984 68.3881 41.8271C69.9859 40.2568 72.094 39.4389 74.3207 39.5253C78.5166 39.6877 81.9278 43.1692 82.0881 47.4502C82.2236 51.1044 79.9518 54.4615 76.562 55.6147C71.5723 57.3116 68.2188 62.1041 68.2188 67.5417V71.666C68.2188 74.924 70.8068 77.5645 74 77.5645C77.1932 77.5645 79.7812 74.924 79.7812 71.666Z"
+          fill="#000"
+        />
+      </svg>
+      <svg
+        width="40"
+        height="40"
+        viewBox="0 0 40 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M27.09 12.9101C25.2911 11.1112 22.7514 9.94714 20.0001 9.94714C17.2487 9.94714 14.709 11.0583 12.9101 12.9101C11.1112 14.709 9.94714 17.2487 9.94714 20.0001C9.94714 22.7514 11.1112 25.2911 12.9101 27.09C14.709 28.8889 17.2487 30.053 20.0001 30.053C22.7514 30.053 25.2911 28.9419 27.09 27.09C28.8889 25.2911 30.053 22.7514 30.053 20.0001C30.053 17.2487 28.9419 14.709 27.09 12.9101Z"
+          fill="#000"
+        />
+        <path
+          d="M19.9999 6.8254C20.7407 6.8254 21.3756 6.19047 21.3756 5.44973V1.37566C21.3756 0.63492 20.7407 0 19.9999 0C19.2592 0 18.6243 0.63492 18.6243 1.37566V5.44973C18.6243 6.19047 19.2592 6.8254 19.9999 6.8254Z"
+          fill="#000"
+        />
+        <path
+          d="M31.2698 10.6878L34.1799 7.77778C34.709 7.24868 34.709 6.40212 34.1799 5.87302C33.6508 5.34392 32.8042 5.34392 32.2751 5.87302L29.3651 8.78307C28.836 9.31217 28.836 10.1587 29.3651 10.6878C29.8413 11.2169 30.6878 11.2169 31.2698 10.6878Z"
+          fill="#000"
+        />
+        <path
+          d="M38.6243 18.6243H34.5502C33.8095 18.6243 33.1746 19.2592 33.1746 19.9999C33.1746 20.7407 33.8095 21.3756 34.5502 21.3756H38.6243C39.365 21.3756 40 20.7407 40 19.9999C40 19.2592 39.365 18.6243 38.6243 18.6243Z"
+          fill="#000"
+        />
+        <path
+          d="M31.217 29.3122C30.6879 28.7831 29.8413 28.7831 29.3122 29.3122C28.7831 29.8413 28.7831 30.6879 29.3122 31.217L32.2223 34.127C32.7514 34.6561 33.5979 34.6561 34.127 34.127C34.6561 33.5979 34.6561 32.7514 34.127 32.2223L31.217 29.3122Z"
+          fill="#000"
+        />
+        <path
+          d="M19.9999 33.1746C19.2592 33.1746 18.6243 33.8095 18.6243 34.5502V38.6243C18.6243 39.365 19.2592 40 19.9999 40C20.7407 40 21.3756 39.365 21.3756 38.6243V34.5502C21.3756 33.8095 20.7407 33.1746 19.9999 33.1746Z"
+          fill="#000"
+        />
+        <path
+          d="M8.7301 29.3122L5.82004 32.2223C5.29094 32.7514 5.29094 33.5979 5.82004 34.127C6.34914 34.6561 7.1957 34.6561 7.72481 34.127L10.6349 31.217C11.164 30.6879 11.164 29.8413 10.6349 29.3122C10.1587 28.7831 9.31211 28.7831 8.7301 29.3122Z"
+          fill="#000"
+        />
+        <path
+          d="M6.8254 19.9999C6.8254 19.2592 6.19047 18.6243 5.44973 18.6243H1.37566C0.63492 18.6243 0 19.2592 0 19.9999C0 20.7407 0.63492 21.3756 1.37566 21.3756H5.44973C6.19047 21.3756 6.8254 20.7407 6.8254 19.9999Z"
+          fill="#000"
+        />
+        <path
+          d="M8.7301 10.6878C9.2592 11.2169 10.1058 11.2169 10.6349 10.6878C11.164 10.1587 11.164 9.31217 10.6349 8.78307L7.72481 5.87302C7.1957 5.34392 6.34914 5.34392 5.82004 5.87302C5.29094 6.40212 5.29094 7.24868 5.82004 7.77778L8.7301 10.6878Z"
+          fill="#000"
+        />
+      </svg>
+    </section>
+  </body>
+</html>
