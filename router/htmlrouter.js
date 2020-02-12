@@ -11,7 +11,10 @@ router.get("/", function(req, res) {
 
 router.get("/home", function(req, res) {
   req.session.current_url = req.originalUrl;
-  res.render("index", { varified: false });
+  res.render("index", {
+    varified: false,
+    admin_varified: req.session.session_veryficatied
+  });
 });
 
 router.get("/about/:id", verify, (req, res) => {
@@ -21,12 +24,16 @@ router.get("/about/:id", verify, (req, res) => {
   res.render("about", {
     varified: true,
     id: userid,
-    name: req.session.user_name
+    name: req.session.user_name,
+    admin_varified: req.session.session_veryficatied
   });
 });
 router.get("/about", async (req, res) => {
   req.session.current_url = req.originalUrl;
-  res.render("about", { varified: false });
+  res.render("about", {
+    varified: false,
+    admin_varified: req.session.session_veryficatied
+  });
 });
 
 router.get("/contact/:id", verify, (req, res) => {
@@ -34,12 +41,16 @@ router.get("/contact/:id", verify, (req, res) => {
   res.render("contact", {
     varified: true,
     id: userid,
-    name: req.session.user_name
+    name: req.session.user_name,
+    admin_varified: req.session.session_veryficatied
   });
 });
 router.get("/contact", async (req, res) => {
   req.session.current_url = req.originalUrl;
-  res.render("contact", { varified: false });
+  res.render("contact", {
+    varified: false,
+    admin_varified: req.session.session_veryficatied
+  });
 });
 
 router.get("/home/:id", verify, (req, res) => {
@@ -47,7 +58,8 @@ router.get("/home/:id", verify, (req, res) => {
   res.render("index", {
     varified: true,
     id: userid,
-    name: req.session.user_name
+    name: req.session.user_name,
+    admin_varified: req.session.session_veryficatied
   });
 });
 
@@ -58,7 +70,8 @@ router.get("/course/:id", verify, async (req, res) => {
     courses,
     varified: true,
     id: userid,
-    name: req.session.user_name
+    name: req.session.user_name,
+    admin_varified: req.session.session_veryficatied
   });
 });
 
@@ -66,7 +79,11 @@ router.get("/course", async (req, res) => {
   req.session.current_url = req.originalUrl;
 
   const courses = await Course.find();
-  res.render("course", { courses, varified: false });
+  res.render("course", {
+    courses,
+    varified: false,
+    admin_varified: req.session.session_veryficatied
+  });
 });
 
 module.exports = router;

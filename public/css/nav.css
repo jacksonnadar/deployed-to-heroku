@@ -63,4 +63,11 @@ header nav ul a {
 header nav ul li {
   padding: 1rem;
 }
+
+header nav ul .admin {
+  background-color: #4caf50;
+  color: #f9fffa;
+  padding: 5px;
+  border-radius: 15px;
+}
 /*# sourceMappingURL=nav.css.map */

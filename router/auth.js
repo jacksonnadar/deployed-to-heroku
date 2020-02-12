@@ -111,26 +111,16 @@ router.post(
       token: token,
       date: Date().now
     });
-    const userexist = await JwtToken.findOne({ jwt: user._id });
+    const userexist = await JwtToken.deleteOne({ jwt: user._id });
+    jwtToken.save();
 
-    if (userexist) {
-      const result = await JwtToken.updateOne(
-        { jwt: user._id },
-        {
-          $set: {
-            token: token,
-            date: Date.now()
-          }
-        }
-      );
-    } else {
-      jwtToken.save();
-    }
+    console.log(jwtToken._id);
+
     req.session.session_veryficatied = true;
     if (!req.session.current_url) {
-      return res.redirect(`/home/${user._id}`);
+      return res.redirect(`/home/${jwtToken._id}`);
     }
-    res.redirect(`${req.session.current_url}/${user._id}`);
+    res.redirect(`${req.session.current_url}/${jwtToken._id}`);
   }
 );
 
@@ -139,7 +129,7 @@ router.post(
 router.delete("/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const result = await JwtToken.deleteOne({ jwt: id }).exec();
+    const result = await JwtToken.deleteOne({ _id: id }).exec();
     req.session.session_veryficatied = false;
     res.send(result);
   } catch (err) {

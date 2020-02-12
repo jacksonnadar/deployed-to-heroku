@@ -4,7 +4,9 @@
       <h3>LOGO</h3>
     </div>
     <ul class="navigation">
-      <% if (varified) { %>
+      <li class="admin">
+        <% if (admin_varified) {%> admin <%}%> <% if (varified) { %>
+      </li>
       <a href="/home/<%=id%>"><li>home</li></a>
       <%} else { %>
       <a href="/home"><li>home</li></a>
