@@ -9,7 +9,6 @@
   </head>
   <body>
     <h2>registration Form</h2>
-    <%= msg %>
     <!--Step 1 : Adding HTML-->
     <form action="/api/users/register" method="post">
       <div class="container">
@@ -40,13 +39,16 @@
           name="password"
           required
         />
-
+        <p><%= typeof msg != 'undefined' ? msg :'' %></p>
         <button type="submit" value="submit">register</button>
         <input type="checkbox" checked="checked" /> Remember me
       </div>
 
       <div class="container" style="background-color:#f1f1f1">
-        <button type="button" class="cancelbtn">Cancel</button>
+        <a href=<%= url%>><button type="button" class="cancelbtn">Cancel</button></a>
+        <a href="/api/users/login"
+          ><button type="button" class="cancelbtn">login</button></a
+        >
       </div>
     </form>
   </body>

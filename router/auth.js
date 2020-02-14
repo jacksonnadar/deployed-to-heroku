@@ -10,11 +10,11 @@ const { check, validationResult } = require("express-validator");
 
 router.get("/login", (req, res) => {
   console.log("session", "this is session " + req.session.current_url);
-  res.render("login", { msg: "this is a message" });
+  res.render("login", { msg: "", url: req.session.current_url });
 });
 
 router.get("/register", (req, res) => {
-  res.render("register");
+  res.render("register", { msg: "", url: req.session.current_url });
 });
 router.post(
   "/register",
@@ -55,9 +55,9 @@ router.post(
     console.log(userexist);
 
     if (userexist) {
-      return res.status(400).send({
-        errors: [{ msg: "email already exist" }]
-      });
+      return res
+        .status(400)
+        .render("register", { msg: "Email already registerd" });
     }
 
     result = register
