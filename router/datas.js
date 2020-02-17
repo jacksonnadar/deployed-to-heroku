@@ -3,6 +3,9 @@ const router = express.Router();
 const Course = require("../api/models/course");
 const mongoose = require("mongoose");
 const session_varify = require("./jwt/verifyreq");
+const upload = require("../middleware/multer");
+const cloudinary = require("../middleware/cloudinary");
+const fs = require("fs");
 
 router.get("/", async (req, res) => {
   try {
@@ -62,8 +65,21 @@ router.patch("/:id", session_varify, async (req, res) => {
     res.status(500).json({ error: err });
   }
 });
-router.post("/", session_varify, async (req, res) => {
+router.post("/", /*session_varify,*/ upload.any(), async (req, res) => {
   try {
+    const uploader = async path => await cloudinary.uploads(path, "Images");
+
+    const urls = [];
+
+    const files = req.files;
+
+    files.forEach(async file => {
+      const { path } = file;
+      const newPath = await uploader(path);
+      urls.push(newPath);
+      fs.unlinkSync(path);
+    });
+
     const course = new Course({
       _id: new mongoose.Types.ObjectId(),
       name: req.body.name,
@@ -73,8 +89,9 @@ router.post("/", session_varify, async (req, res) => {
       fees: req.body.fees
     });
     const result = await course.save();
+    res.status(200).json({ msg: "succes", urls });
 
-    res.status(200).redirect("back");
+    // res.status(200).redirect("back");
   } catch (err) {
     console.log(err);
   }
