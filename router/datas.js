@@ -54,7 +54,7 @@ router.post(
   /*session_varify,*/ upload.any(),
   async (req, res) => {
     try {
-      console.log("body", req.body);
+      console.log("files", req.files);
       let changes = [];
       if (req.body.name) {
         changes.push({ propName: "name", value: req.body.name });
@@ -68,7 +68,7 @@ router.post(
       if (req.body.fees) {
         changes.push({ propName: "fees", value: req.body.fees });
       }
-      if (req.files) {
+      if (req.files[0]) {
         console.log(req.body.id);
         const seperatedid = req.body.id.split("+");
         const image_id = seperatedid[1];

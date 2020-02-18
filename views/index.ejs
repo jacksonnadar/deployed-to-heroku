@@ -139,14 +139,11 @@
         ]
       });
       if (screen.width <= 755) {
-        console.log(screen.width);
 
         sliderAuto(slider, 3000);
       } else if (screen.width >= 755 && screen.width <= 1200) {
-        console.log(screen.width);
         sliderAuto(slider, 4000);
       } else {
-        console.log(screen.width);
         sliderAuto(slider, 6000);
       }
 
@@ -160,7 +157,6 @@
             function slideTo() {
               return slider.isLastSlide() ? 0 : slider.page + 1;
             }
-            console.log(slider.isLastSlide());
             slider.scrollItem(slideTo(), true);
           }, miliseconds);
         }
@@ -198,7 +194,6 @@
       fetch("/api/datas/")
         .then(res => res.json())
         .then(datas => {
-          console.log(datas);
 
           let newdatas = datas.map(
             data =>
@@ -211,7 +206,6 @@
           let items = document.querySelectorAll(".items");
           let newpara = document.querySelectorAll(".newpara");
           items.forEach((item, index) => {
-            console.log(item);
             item.addEventListener(
               "click",
               function() {

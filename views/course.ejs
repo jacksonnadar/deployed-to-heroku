@@ -25,7 +25,7 @@
           <button class="update" data-id="<%= course.id %>+<%= course.image_id %>  ">update</button>
           <button class="delete" data-id="<%= course.id %>">X</button>
         <%}%>
-        <img src=<%= course.image_url %> class="image" alt="image">
+        <img SameSite src=<%= course.image_url %> class="image" alt="image">
         <h3 class="courses__name"><%= course.name %></h3>
         <h3 class="courses__disc"><%= course.disc %></h3>
         <h3 class="courses__tag"><%= course.tag %></h3>
