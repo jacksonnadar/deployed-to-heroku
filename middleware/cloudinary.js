@@ -12,7 +12,7 @@ exports.uploads = (file, folder) => {
       file,
       result => {
         resolve({
-          ulr: result.url,
+          url: result.url,
           id: result.public_id
         });
       },

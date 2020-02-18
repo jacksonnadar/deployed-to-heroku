@@ -3,10 +3,7 @@ const JwtToken = require("../../api/models/jwttoken");
 
 module.exports = async (req, res, next) => {
   try {
-    console.log(req.params.id);
-
     const result = await JwtToken.findById(req.params.id);
-    console.log(result);
 
     if (!result) {
       return res.status(401).redirect("/api/users/login");

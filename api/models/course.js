@@ -6,7 +6,9 @@ const courseSchema = mongoose.Schema({
   disc: String,
   date: Date,
   tag: String,
-  fees: Number
+  fees: Number,
+  image_url: String,
+  image_id:String
 });
 
 module.exports = mongoose.model("Course", courseSchema);

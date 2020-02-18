@@ -1,5 +1,9 @@
 body {
   font-family: "Poppins", sans-serif;
+  img {
+    width: 70%;
+    display: block;
+  }
 }
 
 header {
@@ -50,6 +54,13 @@ header {
     }
   }
 }
+.courses {
+  .img {
+    display: block;
+    margin: auto;
+    width: 70%;
+  }
+}
 .courses-container {
   display: grid;
   margin: 30px 150px 0px 150px;
@@ -59,8 +70,6 @@ header {
   gap: 5px;
   .courses {
     padding: 2rem;
-    border: 1px solid #000;
-
     &__name {
       font-weight: bold;
       text-decoration: underline;

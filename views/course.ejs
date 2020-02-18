@@ -14,17 +14,18 @@
 
     <title>course</title>
   </head>
-  <body>
+  <body >
     
     <%- include('./partials/header') %>
 
     <div class="courses-container">
       <% courses.forEach(function(course) { %>
-      <div data-id="<%= course.id %> class="courses">
+      <div data-id=<%= course.id %>  class="courses">
         <%if(varified){%>
-          <button class="update" data-id="<%= course.id %>">update</button>
+          <button class="update" data-id="<%= course.id %>+<%= course.image_id %>  ">update</button>
           <button class="delete" data-id="<%= course.id %>">X</button>
         <%}%>
+        <img src=<%= course.image_url %> class="image" alt="image">
         <h3 class="courses__name"><%= course.name %></h3>
         <h3 class="courses__disc"><%= course.disc %></h3>
         <h3 class="courses__tag"><%= course.tag %></h3>
@@ -45,6 +46,7 @@
 
     <div id="id02" class="modal">
       <form
+      enctype="multipart/form-data"
       id="post-form"
         class="modal-content animate"
         action="/api/datas/"
@@ -71,6 +73,9 @@
 
           <label for="fees"><b>Course fees</b></label>
           <input type="number" placeholder="Course fees" name="fees" required />
+
+          <label for="Image">Select a file:</label>
+          <input type="file" id="myfile" name="Image" required >
           <%if(varified){%>
             <button type="submit">Add new course</button>
             <%}%>
@@ -97,6 +102,9 @@
     <div id="id01" class="modal">
       <form
       id="update-form"
+      method="post"
+      action="/api/datas/update"
+      enctype="multipart/form-data"
         class="modal-content animate"
         
       >
@@ -110,6 +118,8 @@
         </div>
 
         <div class="container">
+          <input type="text" value="" name="id" readonly>
+
           <label for="name"><b>Course name</b></label>
           <input type="text" placeholder="Course name" name="name"  />
 
@@ -121,6 +131,9 @@
 
           <label for="fees"><b>Course fees</b></label>
           <input type="number" placeholder="Course fees" name="fees"  />
+
+          <label for="Image">Select a file:</label>
+          <input type="file" id="file" name="Image"  >
           <%if(varified){%>
             <button type="submit">Update</button>
           <%}%>
@@ -153,46 +166,55 @@
         course.addEventListener("click", () => {
           document.getElementById("id01").style.display = "block";
           style = "width:auto";
-          const id = course.getAttribute("data-id")
+          const id_imageid = course.getAttribute("data-id")
+          const seperatedid=id_imageid.split('+')
+          const id = seperatedid[0]
           form.setAttribute("data-id", id)
+          form.elements.id.value=seperatedid[0]+"+"+seperatedid[1]
+          form.setAttribute("action",`/api/datas/update/${id}`)
+          
         });
       });
-      form.addEventListener('submit',e=>{
-        e.preventDefault()
+      // form.addEventListener('submit',e=>{
+      //   e.preventDefault()
         
-        let changes=[]
-        const id = form.getAttribute("data-id");
-        console.log(id);
-        
-        if(form.name.value){
-          changes.push({propName:"name",value:form.name.value})
-        }
-        if(form.disc.value){
-          changes.push({propName:"disc",value:form.disc.value})
-        }
-        if(form.tag.value){
-          changes.push({propName:"tag",value:form.tag.value})
-        }
-        if(form.fees.value){
-          changes.push({propName:"fees",value:form.fees.value})
-        }
-        console.log(JSON.stringify(changes));
-        
-        fetch('/api/datas/'+id, {
-        method: 'PATCH',
-        body: JSON.stringify(changes),
-        headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-        }
-        })
-        .then(response => response.json())
-        .then(json => {
-          console.log(json);
-          location.reload();
+      //   let changes=[]
+      //   const id = form.getAttribute("data-id");
+      //   const input = document.getElementById('file');
+      //   // const onSelectFile = () => upload(input.files[0]);
+      //   // input.addEventListener('change', onSelectFile, false);
 
-          
-        })
-      })
+
+      //   if(form.name.value){
+      //     changes.push({propName:"name",value:form.name.value})
+      //   }
+      //   if(form.disc.value){
+      //     changes.push({propName:"disc",value:form.disc.value})
+      //   }
+      //   if(form.tag.value){
+      //     changes.push({propName:"tag",value:form.tag.value})
+      //   }
+      //   if(form.fees.value){
+      //     changes.push({propName:"fees",value:form.fees.value})
+      //   }
+      //   if(form.Image.value){
+      //     changes.push({propName:"Image",value:form.Image.value})
+      //   }
+      //   console.log(JSON.stringify(changes));
+        
+      //   fetch('/api/datas/'+id, {
+      //   method: 'PATCH',
+      //   body: [JSON.stringify(changes),input.files[0]],
+      //   headers: {
+      //   'Content-type': 'application/json; charset=UTF-8'
+      //   }
+      //   })
+      //   .then(response => response.json())
+      //   .then(json => {
+      //     console.log(json);
+      //     location.reload();
+      //   })
+      // })
 
 
 

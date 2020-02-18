@@ -2,6 +2,11 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+body img {
+  width: 70%;
+  display: block;
+}
+
 header {
   position: -webkit-sticky;
   position: sticky;
@@ -58,6 +63,12 @@ header nav ul li {
   padding: 1rem;
 }
 
+.courses .img {
+  display: block;
+  margin: auto;
+  width: 70%;
+}
+
 .courses-container {
   display: -ms-grid;
   display: grid;
@@ -74,7 +85,6 @@ header nav ul li {
 
 .courses-container .courses {
   padding: 2rem;
-  border: 1px solid #000;
 }
 
 .courses-container .courses__name {
