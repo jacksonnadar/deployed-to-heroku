@@ -34,7 +34,7 @@ app.use(logger);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/", require("./router/datas"));
+app.use("/api/datas", require("./router/datas"));
 
 app.use("/api/users", require("./router/auth"));
 
