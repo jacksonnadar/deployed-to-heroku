@@ -17,7 +17,6 @@ router.get("/home", function(req, res) {
 
 router.get("/about/:id", verify, (req, res) => {
   const userid = req.params.id;
-  console.log(req.session.user_name);
 
   res.render("about", {
     varified: true,

@@ -49,10 +49,8 @@ router.post(
       password: hashedpassword,
       date: Date.now()
     });
-    console.log(register);
 
     const userexist = await Register.findOne({ email: req.body.email });
-    console.log(userexist);
 
     if (userexist) {
       return res
@@ -87,17 +85,20 @@ router.post(
   ],
   async (req, res) => {
     const user = await Register.findOne({ email: req.body.email });
-    console.log(user);
 
     if (!user) {
-      return res
-        .status(400)
-        .render("login", { msg: "your are not registered" });
+      return res.status(400).render("login", {
+        msg: "your are not registered",
+        url: req.session.current_url
+      });
     }
 
     const validpass = await bcrypt.compare(req.body.password, user.password);
     if (!validpass) {
-      return res.status(400).render("login", { msg: "worng password" });
+      return res.status(400).render("login", {
+        msg: "worng password",
+        url: req.session.current_url
+      });
     }
     //jwt
 
@@ -113,8 +114,6 @@ router.post(
     });
     const userexist = await JwtToken.deleteOne({ jwt: user._id });
     jwtToken.save();
-
-    console.log(jwtToken._id);
 
     req.session.session_veryficatied = true;
     if (!req.session.current_url) {
