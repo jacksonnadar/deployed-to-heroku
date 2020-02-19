@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const path = require("path");
-cons = require("./jwt/verifyjwt");
 const Course = require("../api/models/course");
 const verify = require("./jwt/verifyjwt");
 
