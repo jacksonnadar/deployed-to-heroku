@@ -55,7 +55,10 @@ router.post(
     if (userexist) {
       return res
         .status(400)
-        .render("register", { msg: "Email already registerd" });
+        .render("register", {
+          msg: "Email already registerd",
+          url: req.session.current_url
+        });
     }
 
     result = register
