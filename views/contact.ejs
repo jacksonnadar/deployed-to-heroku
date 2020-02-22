@@ -12,6 +12,11 @@
       href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
       rel="stylesheet"
     />
+    <script defer src="https://deployedbyjacksocket.herokuapp.com/socket.io/socket.io.js"></script>
+
+    <% if (varified) { %>
+      <script defer src="/javascript/socket.js"></script>
+      <%}%>
     <%- include('./partials/logoutjshead') %>
 
     <link rel="stylesheet" href="/css/nav.css" />
@@ -21,5 +26,21 @@
   <body>
     <%- include('./partials/header') %>
     <h1>Contact</h1>
+
+    <% if (varified) { %>
+      <div id="message-container"></div>
+    <form data-name=<%=name %>  id="send-container">
+      <input type="text" id="message-input" />
+      <button type="submit" id="send-button">send</button>
+    </form>
+      <%}else{%>
+        <h3>You are not logged in</h3>
+        <p>To start chating please logg in</p>
+      <%}%>
+      
+    
+    <script>
+      
+    </script>
   </body>
 </html>
