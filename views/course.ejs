@@ -22,8 +22,9 @@
       <% courses.forEach(function(course) { %>
       <div data-id=<%= course.id %>  class="courses">
         <%if(varified){%>
-          <button class="update" data-id="<%= course.id %>+<%= course.image_id %>  ">update</button>
-          <button class="delete" data-id="<%= course.id %>">X</button>
+          <div class="update-button"><button class="update" data-id="<%= course.id %>+<%= course.image_id %>  ">update</button>
+            <button class="delete" data-id="<%= course.id %>">X</button></div>
+          
         <%}%>
         <img SameSite src=<%= course.image_url %> class="image" alt="image">
         <h3 class="courses__name"><%= course.name %></h3>
@@ -176,15 +177,16 @@
         });
       });
     
-
+//delete button
       deletebuttons.forEach(course => {
         course.addEventListener("click", () => {
             const id = course.getAttribute("data-id");
             fetch("/api/datas/" + id, {
               method: "DELETE"
             }).then(res=>res.json())
-            .then(data=>console.log(data))         
-          course.parentNode.parentNode.removeChild(course.parentNode);
+            .then(data=>console.log(data))  
+                   
+          course.parentNode.parentNode.parentNode.removeChild(course.parentNode.parentNode);
         });
       });
 

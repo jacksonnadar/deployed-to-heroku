@@ -21,7 +21,7 @@ router.post(
   [
     check("name")
       .isString()
-      .isLength({ min: 6, max: 30 })
+      .isLength({ min: 3, max: 30 })
       .withMessage("name be at least 6 chars long"),
     check("email")
       .isString()
@@ -53,21 +53,35 @@ router.post(
     const userexist = await Register.findOne({ email: req.body.email });
 
     if (userexist) {
-      return res
-        .status(400)
-        .render("register", {
-          msg: "Email already registerd",
-          url: req.session.current_url
-        });
+      return res.status(400).render("register", {
+        msg: "Email already registerd",
+        url: req.session.current_url
+      });
     }
 
-    result = register
-      .save()
+    result = register.save();
+    console.log(register);
 
-      .catch(err => {
-        console.log(err);
-      });
-    res.redirect("/");
+    const token = jwt.sign({ _id: register._id }, process.env.TOKEN_SECRET, {
+      expiresIn: "12h"
+    });
+    jwtToken = new JwtToken({
+      _id: new mongoose.Types.ObjectId(),
+      jwt: register._id,
+      name: register.name,
+      token: token,
+      date: Date().now
+    });
+    result = await jwtToken.save();
+    req.session.session_veryficatied = true;
+    console.log(jwtToken._id);
+
+    if (!req.session.current_url) {
+      return res.redirect(`/home/${jwtToken._id}`);
+    }
+    res.redirect(`${req.session.current_url}/${jwtToken._id}`);
+
+    // res.redirect("/");
   }
 );
 
@@ -106,7 +120,7 @@ router.post(
     //jwt
 
     const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
-      expiresIn: "1h"
+      expiresIn: "12h"
     });
     jwtToken = new JwtToken({
       _id: new mongoose.Types.ObjectId(),
@@ -120,9 +134,9 @@ router.post(
 
     req.session.session_veryficatied = true;
     if (!req.session.current_url) {
-      return res.redirect(`/home/${jwtToken._id}`);
+      return res.status(303).redirect(`/home/${jwtToken._id}`);
     }
-    res.redirect(`${req.session.current_url}/${jwtToken._id}`);
+    res.status(303).redirect(`${req.session.current_url}/${jwtToken._id}`);
   }
 );
 

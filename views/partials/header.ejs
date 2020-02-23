@@ -1,32 +1,57 @@
 <header>
   <nav>
-    <div class="logo">
-      <h3>LOGO</h3>
+    <div class="nav-container">
+      <div class="logo">
+        <h3>LOGO</h3>
+      </div>
+      <ul class="navigation">
+        <li class="admin">
+          <% if (admin_varified) {%> admin <%}%> <% if (varified) { %>
+        </li>
+        <a href="/home/<%=id%>"><li>home</li></a>
+        <%} else { %>
+        <a href="/home"><li>home</li></a>
+        <% } %> <% if (varified) { %>
+        <a href="/about/<%=id%>"><li>about</li></a>
+        <%} else { %>
+        <a href="/about"><li>about</li></a>
+        <% } %> <% if (varified) { %>
+        <a href="/course/<%=id%>"><li>Course</li></a>
+        <%} else { %>
+        <a href="/course"><li>Course</li></a>
+        <% } %> <% if (varified) { %>
+        <a href="/contact/<%=id%>"><li>contact</li></a>
+        <%} else { %>
+        <a href="/contact"><li>contact</li></a>
+        <% } %> <% if (varified) { %>
+        <a id="log-out"><li><%= name %></li></a>
+        <%} else { %>
+        <a href="/api/users/login" id="log-in"><li>log-in</li></a>
+        <% } %>
+      </ul>
+      <div class="burger">
+        <div class="overlay"></div>
+        <div class="hamburger-container">
+          <div class="hamburger"></div>
+          <div class="hamburger"></div>
+          <div class="hamburger"></div>
+        </div>
+      </div>
     </div>
-    <ul class="navigation">
-      <li class="admin">
-        <% if (admin_varified) {%> admin <%}%> <% if (varified) { %>
-      </li>
-      <a href="/home/<%=id%>"><li>home</li></a>
-      <%} else { %>
-      <a href="/home"><li>home</li></a>
-      <% } %> <% if (varified) { %>
-      <a href="/about/<%=id%>"><li>about</li></a>
-      <%} else { %>
-      <a href="/about"><li>about</li></a>
-      <% } %> <% if (varified) { %>
-      <a href="/course/<%=id%>"><li>Course</li></a>
-      <%} else { %>
-      <a href="/course"><li>Course</li></a>
-      <% } %> <% if (varified) { %>
-      <a href="/contact/<%=id%>"><li>contact</li></a>
-      <%} else { %>
-      <a href="/contact"><li>contact</li></a>
-      <% } %> <% if (varified) { %>
-      <a id="log-out"><li><%= name %></li></a>
-      <%} else { %>
-      <a href="/api/users/login" id="log-in"><li>log-in</li></a>
-      <% } %>
-    </ul>
   </nav>
+  <script>
+    const navbar = document.querySelector(".navigation");
+    const burger = document.querySelector(".burger");
+    const overlay = document.querySelector(".overlay");
+
+    burger.addEventListener("click", () => {
+      if (!navbar.classList.contains("nav-bar-active")) {
+        navbar.classList.add("nav-bar-active");
+        overlay.classList.add("overlay-active");
+      } else {
+        navbar.classList.remove("nav-bar-active");
+        overlay.classList.remove("overlay-active");
+      }
+    });
+  </script>
 </header>

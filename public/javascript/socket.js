@@ -10,7 +10,10 @@ appendMessage("you joined");
 socket.emit("new-user", name);
 
 socket.on("chat-message", data => {
-  appendMessage(`${data.name}:${data.message}`);
+  appendMessage(
+    `<p class = "user">${data.name}</p><p class = "message">${data.message}</p?`,
+    "not-you"
+  );
 });
 
 socket.on("user-connected", name => {
@@ -23,18 +26,30 @@ socket.on("user-disconnected", name => {
 
 messageform.addEventListener("submit", e => {
   e.preventDefault();
+  if (!messageinput.value) {
+    return;
+  }
   const message = messageinput.value;
   const messageelement = document.createElement("div");
-  messageelement.innerText = `you:${message}`;
-  messagecontainer.append(messageelement);
-
+  messageelement.innerText = `${message}`;
+  messagecontainer.prepend(messageelement);
+  messageelement.classList.add("you", "messages");
   socket.emit("send-chat-message", message);
   messageinput.value = "";
 });
 
-function appendMessage(message) {
+function appendMessage(message, connection) {
   const messageelement = document.createElement("div");
   messageelement.innerText = message;
-
-  messagecontainer.append(messageelement);
+  if (connection === "you") {
+    messageelement.classList.add(connection, "messages");
+  } else if (connection === "not-you") {
+    messageelement.innerHTML = message;
+    messageelement.classList.add(connection, "messages");
+  } else {
+    messageelement.classList.add("connection", "messages");
+  }
+  messagecontainer.prepend(messageelement);
 }
+
+messagecontainer.scrollTop = messagecontainer.scrollHeight;

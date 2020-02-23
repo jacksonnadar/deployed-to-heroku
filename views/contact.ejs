@@ -20,27 +20,35 @@
     <%- include('./partials/logoutjshead') %>
 
     <link rel="stylesheet" href="/css/nav.css" />
+    <link rel="stylesheet" href="/css/contact.css">
 
     <title>Contact</title>
   </head>
   <body>
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
     <%- include('./partials/header') %>
     <h1>Contact</h1>
-
-    <% if (varified) { %>
+<div class="chat">
+  <% if (varified) { %>
+    <div class="chat-container">
       <div id="message-container"></div>
     <form data-name=<%=name %>  id="send-container">
-      <input type="text" id="message-input" />
+      <input type="text" autocomplete="off" id="message-input" />
       <button type="submit" id="send-button">send</button>
     </form>
+    </div>
+      
       <%}else{%>
         <h3>You are not logged in</h3>
         <p>To start chating please logg in</p>
       <%}%>
       
+</div>
+  
     
-    <script>
-      
-    </script>
+   
   </body>
 </html>

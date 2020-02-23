@@ -6,54 +6,6 @@ body {
   }
 }
 
-header {
-  position: sticky;
-  top: 0;
-  z-index: 3;
-  height: 20vh;
-  background-image: linear-gradient(
-    to top,
-    rgba(245, 255, 247, 0),
-    rgba(245, 255, 247, 0.7),
-    rgba(245, 255, 247, 1)
-  );
-  nav {
-    height: 12vh;
-    width: 80vw;
-    margin: auto;
-    position: sticky;
-    top: 5vh;
-    background: #f9fffa;
-    box-shadow: 0px 2.76726px 4.81503px rgba(0, 0, 0, 0.00591238),
-      0px 6.6501px 11.5712px rgba(0, 0, 0, 0.0120169),
-      0px 12.5216px 21.7875px rgba(0, 0, 0, 0.0185423),
-      0px 22.3363px 38.8652px rgba(0, 0, 0, 0.0260911),
-      0px 41.7776px 72.693px rgba(0, 0, 0, 0.036991),
-      0px 100px 174px rgba(0, 0, 0, 0.07);
-    border-radius: 14px;
-    display: flex;
-    justify-content: space-between;
-    .logo {
-      margin-left: 15px;
-    }
-
-    ul {
-      list-style: none;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      justify-items: center;
-      margin-right: 15px;
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-      li {
-        padding: 1rem;
-      }
-    }
-  }
-}
 .courses {
   .img {
     display: block;
@@ -76,6 +28,7 @@ header {
       display: block;
       font-size: 30px;
       font-family: "Poppins", sans-serif;
+      margin: 9px;
     }
     &__tag {
       border: 1px solid #000;
@@ -84,12 +37,15 @@ header {
       background-color: orange;
       padding: 10px;
       display: inline;
+      margin: 9px;
     }
     &__disc {
       font-size: 20px;
+      margin: 9px;
     }
     &__fees {
       font-weight: bold;
+      margin: 9px;
     }
   }
 }
@@ -219,4 +175,42 @@ button {
   display: inline-block !important;
   width: auto;
   border-radius: 15px;
+}
+
+@media only screen and (max-width: 768px) {
+  .modal-content {
+    width: 80%; /* Could be more or less, depending on screen size */
+    margin: auto;
+  }
+
+  .courses-container {
+    display: grid;
+    margin: auto;
+    grid-template-columns: 1fr;
+
+    .courses {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 1.5rem;
+      &__name {
+        font-size: 25px;
+        margin: 7px;
+      }
+      &__tag {
+        border: 0.5px solid #000;
+        margin: 7px;
+
+        padding: 7px;
+      }
+      &__disc {
+        font-size: 17px;
+        margin: 7px;
+      }
+      &__fees {
+        margin: 7px;
+      }
+    }
+  }
 }
