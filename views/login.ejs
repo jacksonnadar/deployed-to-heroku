@@ -3,10 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-signin-client_id" content="904988862633-h10mt2ir54cks97dq1fjpjn3kk296e10.apps.googleusercontent.com">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="/css/login.css" type="text/css" />
-
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <title>login</title>
+    
+    <script>
+      function onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      console.log('Name: ' + profile.getName());
+      console.log('Image URL: ' + profile.getImageUrl());
+      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
+
+    function onSignIn(googleUser) {
+      var id_token = googleUser.getAuthResponse().id_token;
+      console.log(id_token);
+      fetch('/api/users/google', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({id:id_token}),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        window.location.href = data.url;
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+        }
+    </script>
   </head>
   <body>
     <h2>Login Form</h2>
@@ -34,10 +64,10 @@
           maxlength="200"
         />
         <p><%= typeof msg != 'undefined' ? msg :'' %></p>
+        <div class="g-signin2" data-width="200"  data-onsuccess="onSignIn"></div>
         <button type="submit" value="submit">Login</button>
-        <input type="checkbox" checked="checked" /> Remember me
       </div>
-
+      
       <div class="container" style="background-color:#f1f1f1">
         <a href=<%= url%>><button type="button" class="cancelbtn">Cancel</button></a>
         <a href="/api/users/register"

@@ -4,16 +4,13 @@ console.log(id);
 
 btn = document.getElementById("log-out");
 btn.addEventListener("click", () => {
+  signOut();
   const url = window.location.href;
   const spliturl = url.split("/");
   let newurl = "";
   spliturl.pop();
   const homecheack = spliturl.pop();
   if (homecheack !== "home") spliturl.push(homecheack);
-
-  // const addslash = spliturl.map(url=>{
-
-  // })
 
   spliturl.forEach(url => {
     newurl += url + "/";

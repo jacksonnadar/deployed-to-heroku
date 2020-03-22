@@ -68,11 +68,16 @@ span.psw {
 }
 
 /*set styles for span and cancel button on small screens*/
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 980px) {
   form {
     border: 3px solid #f1f1f1;
     width: 80vw;
     margin: auto;
   }
 }
+.g-signin2 {
+  margin: auto;
+  width: 200px;
+}
+
 /*# sourceMappingURL=login.css.map */

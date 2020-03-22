@@ -28,6 +28,11 @@
         <%} else { %>
         <a href="/api/users/login" id="log-in"><li>log-in</li></a>
         <% } %>
+        <div
+          style="display: none;"
+          class="g-signin2"
+          data-onsuccess="onSignIn"
+        ></div>
       </ul>
       <div class="burger">
         <div class="overlay"></div>

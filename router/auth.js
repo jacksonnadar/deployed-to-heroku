@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const JwtToken = require("../api/models/jwttoken");
 const bcrypt = require("bcryptjs");
+const { OAuth2Client } = require("google-auth-library");
 
 const { check, validationResult } = require("express-validator");
 
@@ -139,6 +140,71 @@ router.post(
     res.status(303).redirect(`${req.session.current_url}/${jwtToken._id}`);
   }
 );
+
+router.post("/google", (req, res) => {
+  try {
+    console.log(req.body.id);
+
+    const client = new OAuth2Client(process.env.CLIENT_ID);
+    async function verify() {
+      const ticket = await client.verifyIdToken({
+        idToken: req.body.id,
+        audience: process.env.CLIENT_ID // Specify the CLIENT_ID of the app that accesses the backend
+        // Or, if multiple clients access the backend:
+        //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+      });
+      const payload = ticket.getPayload();
+      const userid = payload["sub"];
+      console.log(payload);
+      // If request specified a G Suite domain:
+      //const domain = payload['hd'];
+      const user = await Register.findOne({ email: payload.email });
+      let user_id = user._id;
+      if (!user) {
+        const register = new Register({
+          _id: new mongoose.Types.ObjectId(),
+          name: payload.name,
+          email: payload.email,
+          password: "google-verified",
+          date: Date.now()
+        });
+        user_id = register._id;
+        const result = register.save();
+      }
+      if (!payload.email_verified) {
+        return res.status(200).render("login", {
+          msg: "E-mail could not be able to varify",
+          url: req.session.current_url
+        });
+      }
+      const token = jwt.sign({ _id: user_id }, process.env.TOKEN_SECRET, {
+        expiresIn: "12h"
+      });
+      jwtToken = new JwtToken({
+        _id: new mongoose.Types.ObjectId(),
+        jwt: user_id,
+        name: user.name,
+        token: token,
+        date: Date().now
+      });
+      const userexist = await JwtToken.deleteOne({
+        jwt: user_id
+      });
+      jwtToken.save();
+
+      req.session.session_veryficatied = true;
+      if (!req.session.current_url) {
+        return res.json({ url: `/home/${jwtToken._id}` }).status(200);
+      }
+      res
+        .json({ url: `${req.session.current_url}/${jwtToken._id}` })
+        .status(200);
+    }
+    verify().catch(console.error);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 //jwt db
 

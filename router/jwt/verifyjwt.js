@@ -10,7 +10,9 @@ module.exports = async (req, res, next) => {
     }
 
     const varified = jwt.verify(result.token, process.env.TOKEN_SECRET);
-    req.user = varified;
+    // req.user = varified;
+    // console.log(req.user);
+
     req.session.user_name = result.name;
 
     next();
